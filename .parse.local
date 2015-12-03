@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "HEBA": {
+      "applicationId": "FxIKD0gxTd4rdcDyHxKZZG9XxeBMrKT1KmgM7xCl"
+    },
+    "_default": {
+      "link": "HEBA"
+    }
+  }
+}
