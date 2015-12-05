@@ -40,6 +40,15 @@ Parse.Cloud.afterSave("Stamp", function(request) {
   query = new Parse.Query("Event");
   query.get(request.object.get("eventId"), {
     success: function(event) {
+      var thumbnail1 = event.get("thumbnail1");
+      var thumbnail2 = event.get("thumbnail2");
+      if (thumbnail2 !== null) {
+        event.set("thumbnail3", thumbnail2);
+      }
+      if (thumbnail1 !== null) {
+        event.set("thumbnail2", thumbnail1);
+      }
+      event.set("thumbnail1", request.object.get("thumbnail"));
       event.increment("nParticipant");
       event.save();
     },
@@ -48,3 +57,4 @@ Parse.Cloud.afterSave("Stamp", function(request) {
     }
   });
 });
+
