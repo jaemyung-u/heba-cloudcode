@@ -22,3 +22,29 @@ Parse.Cloud.define("averageLocation", function(request, response) {
     }
   });
 });
+
+Parse.Cloud.beforeSave("Stamp", function(request, response) {
+  query = new Parse.Query("Event");
+  query.get(request.object.get("eventId"), {
+    success: function(event) {
+      request.object.set("event", event);
+    },
+    error: function(error) {
+      console.error("Got an error " + error.code + " : " + error.message);
+    }
+  });
+  response.success();
+});
+
+Parse.Cloud.afterSave("Stamp", function(request) {
+  query = new Parse.Query("Event");
+  query.get(request.object.get("eventId"), {
+    success: function(event) {
+      event.increment("nParticipant");
+      event.save();
+    },
+    error: function(error) {
+      console.error("Got an error " + error.code + " : " + error.message);
+    }
+  });
+});
