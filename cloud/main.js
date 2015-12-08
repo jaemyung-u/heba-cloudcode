@@ -39,8 +39,3 @@ Parse.Cloud.afterSave("Stamp", function(request) {
   });
 });
 
-Parse.Cloud.afterSave(Parse.User, function(request) {
-  var userInfo = request.object.get("userInfo");
-  userInfo.set("userId", request.object.get("userId");
-  userInfo.save();
-});
