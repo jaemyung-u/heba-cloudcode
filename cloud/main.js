@@ -29,6 +29,7 @@ Parse.Cloud.afterSave("Stamp", function(request) {
     success: function(event) {
       var idx = event.get("thumbnailIndex");
       event.set("thumbnail" + idx, request.object.get("thumbnail"));
+      event.set("stamp" + idx, request.object);
       event.set("thumbnailIndex", (idx + 1) % 6);
       event.increment("nParticipant");
       event.save();
@@ -38,4 +39,5 @@ Parse.Cloud.afterSave("Stamp", function(request) {
     }
   });
 });
+
 
